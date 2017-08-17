@@ -3,19 +3,18 @@
     <p id="scramble">
       NextScramble:
     </p>
-    <button type="button" id=btnScramble class ="btn btn-lg btn-primary" onclick=startScramble()>再表示</button>
+    <!--
+      <button type="button" id="btnScramble" class ="btn btn-lg btn-primary" onclick=startScramble()>再表示</button>
+    -->
     <p id="time">
     00:00:00.00
     </p>
-    <button type="button" id="btnStart" class="btn btn-lg btn-primary" onclick="startStop()">
-    スタート
-    </button>
-    <button type="button" id="btnClear" class="btn btn-lg btn-primary" onclick="resetStopWatch()">
-    クリア
+    <button type="button" id="btnStart" class="btn btn-lg btn-primary" onclick="pushSpaceKey()">
+    Please Push "Space" Key
     </button>
     </form>
 
   <h3>
-  <%= link_to "Sign up now!", '#', class: "btn btn-lg btn-primary" %>
+  <%#= link_to "Sign up now!", '#', class: "btn btn-lg btn-primary" %>
   </h3>
 </div>
