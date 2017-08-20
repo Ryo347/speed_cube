@@ -1,20 +1,48 @@
 <div class="center jumbotron">
-    <form name="form1" id="form1">
+    <form name="timeForm" id="timeForm">
     <p id="scramble">
-      NextScramble:
+      NextScramble: <%= getScramble %>
     </p>
     <!--
       <button type="button" id="btnScramble" class ="btn btn-lg btn-primary" onclick=startScramble()>再表示</button>
+    
     -->
-    <p id="time">
+    <p name= "timerNo" id="time">
     00:00:00.00
     </p>
-    <button type="button" id="btnStart" class="btn btn-lg btn-primary" onclick="pushSpaceKey()">
-    Please Push "Space" Key
+    <button type="button" id="btnStart" class="btn btn-lg btn-primary" onclick="pushSpaceKey()" >
+          Please Push "Space" Key
     </button>
-    </form>
+    <script type="text/javascript">
+    //function pushSpaceKey(){
+    //  var button1 = document.getElementById("btnStart")
+    //  button1.style.backgroundColor = "red";
+    //}
 
-  <h3>
-  <%#= link_to "Sign up now!", '#', class: "btn btn-lg btn-primary" %>
-  </h3>
+  myButton = 0;	// [Start]/[Stop]のフラグ
+  function pushSpaceKey(){	
+
+  if (myButton==0){	// Startボタンを押した
+    timer = 0;
+    myButton = 1;
+    btnStart = document.getElementById("btnStart")
+    btnStart.style.backgroundColor = "red";
+    btnStart.innerHTML = 'Time is being measured...';
+    //timer = setInterval("count_up()",1000); 
+    
+    
+  }else{	// Stopボタンを押した
+    myButton = 0;
+    btnStart = document.getElementById("btnStart")
+    btnStart.style.backgroundColor = "black";
+    btnStart.innerHTML = 'Please Push "Space" Key';
+    btnStart.innerHTML = timer;
+  }
+  
+  function count_up(){	
+
+  }
+  }  	
+    </script>
+    </form>
 </div>
