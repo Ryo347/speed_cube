@@ -1,47 +1,51 @@
 <div class="center jumbotron">
-    <form name="timeForm" id="timeForm">
-    <p id="scramble">
-      NextScramble: <%= getScramble %>
-    </p>
-    <!--
-      <button type="button" id="btnScramble" class ="btn btn-lg btn-primary" onclick=startScramble()>再表示</button>
-    
+  <form name="timeForm" id="timeForm">
+  <p id="scramble">NextScramble: <%= getScramble %></p>
+  <!--
+    <button type="button" id="btnScramble" class ="btn btn-lg btn-primary" onclick=startScramble()>再表示</button>
     -->
-    <p name= "timerNo" id="time">
-    00:00:00.00
-    </p>
-    <button type="button" id="btnStart" class="btn btn-lg btn-primary" onclick="pushSpaceKey()" >
-          Please Push "Space" Key
-    </button>
-    <script type="text/javascript">
-    //function pushSpaceKey(){
-    //  var button1 = document.getElementById("btnStart")
-    //  button1.style.backgroundColor = "red";
-    //}
+  <div id="timer">00:00.000</div>
+  <button type="button" id="btnStart" class="btn btn-lg btn-primary"  onclick="pushSpaceKey()" >
+        Please Click This Button
+  </button>
+  <script type="text/javascript">
 
-  myButton = 0;	// [Start]/[Stop]のフラグ
-  function pushSpaceKey(){	
-
-  if (myButton==0){	// Startボタンを押した
-    timer = 0;
-    myButton = 1;
-    btnStart = document.getElementById("btnStart")
-    btnStart.style.backgroundColor = "red";
-    btnStart.innerHTML = 'Time is being measured...';
-    //timer = setInterval("count_up()",1000); 
-    
-    
-  }else{	// Stopボタンを押した
-    myButton = 0;
-    btnStart = document.getElementById("btnStart")
-    btnStart.style.backgroundColor = "black";
-    btnStart.innerHTML = 'Please Push "Space" Key';
-    btnStart.innerHTML = timer;
+  btnFlg      = 0;                                   // [Start]/[Stop]のフラグ
+  elapsedTime = 0;                                   // 経過時間
+  btnStart    = document.getElementById("btnStart"); // スタートボタン
+  timer       = document.getElementById("timer");    // 表示時間
+  timerId;                                           // clearTimeoutのためのID
+  
+  //表示時間の成型
+  function updateTime(){
+    m  = ('0'   + Math.floor(elapsedTime / 60000)).slice(-2);         // 分の取得
+    s  = ('0'   + Math.floor(elapsedTime % 60000 / 1000)).slice(-2);  // 秒の取得
+    ms = ('000' + elapsedTime % 1000).slice(-3);                      // ミリ秒の取得
+    timer.textContent = m + ":" + s + "." + ms;                       // タイマーの書式設定
   }
   
-  function count_up(){	
-
+  //再帰的にcountUpを呼び出してカウントアップ(10ミリ秒ごとに呼び出す)
+  function countUp(){
+    timerId = setTimeout(function(){
+      elapsedTime = Date.now() - startTime;
+      countUp();
+      updateTime();
+    },10);
   }
+  
+  //Spaceキーを押下した時のアクション
+  function pushSpaceKey(){	
+  if (btnFlg==0){	          // Startボタンを押した
+    startTime = Date.now();
+    btnFlg = 1;
+    btnStart.innerHTML = 'Time is being measured...';
+    countUp();
+  }else{	                  // Stopボタンを押した
+    btnFlg = 0;
+    btnStart.innerHTML = 'Please Push "Space" Key';
+    clearTimeout(timerId);
+  }
+  
   }  	
     </script>
     </form>
