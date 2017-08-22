@@ -44,20 +44,36 @@ h3 {
   text-decoration: none;
 }
 
-/* time */
+/* timerArea */
+
+#timerArea {
+  float: left;
+}
 
 #timer {
   margin-top: 80px;
   margin-bottom: 60px;
-  font-size: 130px;
+  font-size: 100px;
+  text-align: left;
 }
 
 #scramble{
+  margin-top: 60px;
   font-size: 20px;
   text-align: left;
 }
 
 #btnStart{
-  font-size: 50px;
+  font-size: 30px;
   margin-top: 30px;
+  text-align: left;
+}
+
+/* recordArea */
+#recordArea {
+  margin-top: 30px;
+  float:right;
+  text-align: left;
+  font-size: 10px;
+  
 }

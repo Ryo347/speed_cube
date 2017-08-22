@@ -8,6 +8,5 @@ module ApplicationHelper
            scrList.push(symbol.sample)
        }
        
-       p scrList
     end
 end

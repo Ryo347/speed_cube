@@ -1,20 +1,28 @@
-<div class="center jumbotron">
-  <form name="timeForm" id="timeForm">
-  <p id="scramble">NextScramble: <%= getScramble %></p>
-  <!--
-    <button type="button" id="btnScramble" class ="btn btn-lg btn-primary" onclick=startScramble()>再表示</button>
-    -->
+<div class="row">
+<div class="col-sm-8" id="timerArea">
+  <p id="scramble">NextScramble:</p>
   <div id="timer">00:00.000</div>
   <button type="button" id="btnStart" class="btn btn-lg btn-primary"  onclick="pushSpaceKey()" >
         Please Click This Button
   </button>
-  <script type="text/javascript">
 
-  btnFlg      = 0;                                   // [Start]/[Stop]のフラグ
-  elapsedTime = 0;                                   // 経過時間
-  btnStart    = document.getElementById("btnStart"); // スタートボタン
-  timer       = document.getElementById("timer");    // 表示時間
-  timerId;                                           // clearTimeoutのためのID
+</div>
+
+<div div class="col-sm-4" id="recordArea">
+  <ul type="circle">
+    <li>hoge</li>
+    <li>fuga</li>
+  </ul>
+</div>
+</div>
+
+<script type="text/javascript">
+  btnFlg      = 0;                                    // [Start]/[Stop]のフラグ
+  elapsedTime = 0;                                    // 経過時間
+  btnStart    = document.getElementById("btnStart");  // スタートボタン
+  timer       = document.getElementById("timer");     // 表示時間
+  scramble    = document.getElementById("scramble");  // スクランブルリスト
+  timerId;                                            // clearTimeoutのためのID
   
   //表示時間の成型
   function updateTime(){
@@ -33,20 +41,37 @@
     },10);
   }
   
+  //スクランブルを取得
+  function nextScrambler(){
+    scrList = [];
+    step = 0;
+    symbol = ["F","F2","F'","U","U2","U'","R","R2","R'","L","L2","L2","B","B2","B'","D","D2","D'"];
+    for (step = 0; step < 15; step++){
+      scrList.push(symbol[Math.floor(Math.random() * symbol.length)]);
+    }
+    
+    scramble.innerHTML = "NextScramble:"
+    for (step = 0; step < 15; step++){
+    scramble.innerHTML = scramble.innerHTML + scrList[step] + " ";
+    }
+  }
+  
   //Spaceキーを押下した時のアクション
   function pushSpaceKey(){	
   if (btnFlg==0){	          // Startボタンを押した
+    btnStart.style.backgroundColor = "#DF0101";
     startTime = Date.now();
     btnFlg = 1;
     btnStart.innerHTML = 'Time is being measured...';
     countUp();
   }else{	                  // Stopボタンを押した
+    btnStart.style.backgroundColor = "#337ab7";
     btnFlg = 0;
     btnStart.innerHTML = 'Please Push "Space" Key';
     clearTimeout(timerId);
+    nextScrambler();
   }
   
   }  	
-    </script>
-    </form>
-</div>
+</script>
+
