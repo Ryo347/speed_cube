@@ -9,20 +9,22 @@
 </div>
 
 <div div class="col-sm-4" id="recordArea">
-  <ul type="circle">
-    <li>hoge</li>
-    <li>fuga</li>
-  </ul>
+  <ul type="circle"></ul>
 </div>
 </div>
 
 <script type="text/javascript">
-  btnFlg      = 0;                                    // [Start]/[Stop]のフラグ
-  elapsedTime = 0;                                    // 経過時間
-  btnStart    = document.getElementById("btnStart");  // スタートボタン
-  timer       = document.getElementById("timer");     // 表示時間
-  scramble    = document.getElementById("scramble");  // スクランブルリスト
-  timerId;                                            // clearTimeoutのためのID
+
+  //各種変数の定義
+  btnFlg      = 0;                                      // [Start]/[Stop]のフラグ
+  elapsedTime = 0;                                      // 経過時間
+  btnStart    = document.getElementById("btnStart");    // スタートボタン
+  timer       = document.getElementById("timer");       // 表示時間
+  scramble    = document.getElementById("scramble");    // スクランブルリスト
+  recordArea  = document.getElementById("recordArea");  // レコードエリア
+  
+  //キーが押下された時のイベントリスナー
+  document.addEventListener("keydown",pushSpaceKey)
   
   //表示時間の成型
   function updateTime(){
@@ -56,22 +58,32 @@
     }
   }
   
-  //Spaceキーを押下した時のアクション
-  function pushSpaceKey(){	
-  if (btnFlg==0){	          // Startボタンを押した
-    btnStart.style.backgroundColor = "#DF0101";
-    startTime = Date.now();
-    btnFlg = 1;
-    btnStart.innerHTML = 'Time is being measured...';
-    countUp();
-  }else{	                  // Stopボタンを押した
-    btnStart.style.backgroundColor = "#337ab7";
-    btnFlg = 0;
-    btnStart.innerHTML = 'Please Push "Space" Key';
-    clearTimeout(timerId);
-    nextScrambler();
+  //レコードを追加
+  function addRecord(){
+    newRecord = document.createElement("li");
+    newRecord.innerHTML = timer.textContent;
+    recordArea.appendChild(newRecord);
   }
   
-  }  	
+  //イベントリスナー
+  function pushSpaceKey(){
+  //押下されたキーコードが32(スペースキー)か判定
+  if (event.keyCode == 32){
+    if (btnFlg==0){	          
+      btnStart.style.backgroundColor = "#DF0101";
+      startTime = Date.now();
+      btnFlg = 1;
+      btnStart.innerHTML = 'Time is being measured...';
+      countUp();
+    }else{	                  
+      btnStart.style.backgroundColor = "#337ab7";
+      btnFlg = 0;
+      btnStart.innerHTML = 'Please Push "Space" Key';
+      clearTimeout(timerId);
+      nextScrambler();
+      addRecord();
+    }
+    }
+  }
 </script>
 
